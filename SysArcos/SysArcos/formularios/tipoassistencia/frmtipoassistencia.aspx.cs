@@ -17,22 +17,34 @@ namespace ProjetoArcos
             {
                 using (ARCOS_Entities entities = new ARCOS_Entities())
                 {
-                    String pagina = HttpContext.Current.Request.Url.AbsolutePath;
-                    validaPermissao(pagina);
-
-                    String evento = Request.QueryString["ID"];
-                    if ((evento != null) && (!evento.Equals("")))
+                    if (Session["usuariologado"] == null)
                     {
-                        TIPO_EVENTO u = entities.TIPO_EVENTO.FirstOrDefault(x => x.ID.ToString().Equals(evento));
-                        if (u != null)
+                        Response.Redirect("Default.aspx");
+                    }
+                    else
+                    {
+                        String login = (String)Session["usuariologado"];
+                        String url = HttpContext.Current.Request.Url.AbsolutePath;
+                        if (!Permissoes.possuiPermissaoURL(entities, url, login))
                         {
-                            lblID.Text = u.ID.ToString();
-                            txtDescricaoEvento.Text = u.DESCRICAO;
-                            txtTipoEvento.Text = u.NOME;
-                            lblAcao.Text = "ALTERANDO";
+                            Response.Redirect("permissao_negada.aspx");
+                        }
+                        else
+                        {
+                            String evento = Request.QueryString["ID"];
+                            if ((evento != null) && (!evento.Equals("")))
+                            {
+                                TIPO_EVENTO u = entities.TIPO_EVENTO.FirstOrDefault(x => x.ID.ToString().Equals(evento));
+                                if (u != null)
+                                {
+                                    lblID.Text = u.ID.ToString();
+                                    txtDescricaoEvento.Text = u.DESCRICAO;
+                                    txtTipoEvento.Text = u.NOME;
+                                    lblAcao.Text = "ALTERANDO";
+                                }
+                            }
                         }
                     }
-
                 }
             }
         }
@@ -55,7 +67,7 @@ namespace ProjetoArcos
                 {
                     using (ARCOS_Entities entity = new ARCOS_Entities())
                     {
-                        if (!Permissoes.validar(lblAcao.Text.Equals("NOVO") ? Acoes.INCLUIR : Acoes.ALTERAR,
+                        if (!Permissoes.possuiPermissaoTela(lblAcao.Text.Equals("NOVO") ? Acoes.INCLUIR : Acoes.ALTERAR,
                         Session["usuariologado"].ToString(),
                         COD_VIEW,
                         entity))
@@ -64,8 +76,8 @@ namespace ProjetoArcos
                         }
                         else
                         {
-                            String pagina = HttpContext.Current.Request.Url.AbsolutePath;
-                            validaPermissao(pagina);
+                            //String pagina = HttpContext.Current.Request.Url.AbsolutePath;
+                            //validaPermissao(pagina);
 
                             TIPO_EVENTO tipo_evento = null;
 
@@ -127,28 +139,6 @@ namespace ProjetoArcos
             txtTipoEvento.Text = string.Empty;
             txtDescricaoEvento.Text = string.Empty;
             lblAcao.Text = "NOVO";
-        }
-
-        private void validaPermissao(String pagina)
-        {
-            using (ARCOS_Entities entity = new ARCOS_Entities())
-            {
-                string login = (string)Session["usuariologado"];
-                USUARIO u =
-                    entity.USUARIO.FirstOrDefault(linha => linha.LOGIN.Equals(login));
-                if (!u.ADM)
-                {
-                    SISTEMA_ENTIDADE item = entity.SISTEMA_ENTIDADE.FirstOrDefault(x => x.URL.Equals(pagina));
-                    if (item != null)
-                    {
-                        SISTEMA_ITEM_ENTIDADE perm = u.GRUPO_PERMISSAO.SISTEMA_ITEM_ENTIDADE.FirstOrDefault(x => x.ID_SISTEMA_ENTIDADE.ToString().Equals(item.ID.ToString()));
-                        if (perm == null)
-                        {
-                            Response.Redirect("/permissao_negada.aspx");
-                        }
-                    }
-                }
-            }
         }
     }
 }

@@ -52,7 +52,7 @@ namespace SysArcos.formularios.parentesco_assistido
                 {
                     using (ARCOS_Entities entity = new ARCOS_Entities())
                     {
-                        if (!Permissoes.validar(lblAcao.Text.Equals("NOVO") ? Acoes.INCLUIR : Acoes.ALTERAR,
+                        if (!Permissoes.possuiPermissaoTela(lblAcao.Text.Equals("NOVO") ? Acoes.INCLUIR : Acoes.ALTERAR,
                         Session["usuariologado"].ToString(),
                         COD_VIEW,
                         entity))

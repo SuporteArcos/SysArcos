@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SysArcos;
+using SysArcos.utils;
 namespace ProjetoArcos
 {
     public partial class MasterPage : System.Web.UI.MasterPage
@@ -14,25 +15,30 @@ namespace ProjetoArcos
             if (!IsPostBack)
             {
                 //Valida Permissões
-                String pagina = HttpContext.Current.Request.Url.AbsolutePath;
-                if (!pagina.Equals("/AlterarSenhaProxLogin.aspx"))
+                String url = HttpContext.Current.Request.Url.AbsolutePath;
+                if (!url.Equals("/AlterarSenhaProxLogin.aspx"))
                     verificarSenhaPrimeiroLogin();
 
-                String login = (string)Session["usuariologado"]; //Neste caso deve-se fazer a conversão
+                String login = (string)Session["usuariologado"]; 
                 if (login != null)
                 {
                     using (ARCOS_Entities entity = new ARCOS_Entities())
                     {
-                        string permissao = "";
-                        USUARIO u = entity.USUARIO.FirstOrDefault(x => x.LOGIN.Equals(login));
-                        if (u.GRUPO_PERMISSAO != null)
-                            permissao = u.GRUPO_PERMISSAO.DESCRICAO;
-                        lbl_welcomeUser.Text = (u.NOME + "("+ permissao +")"); // em 'u' vai recuperar o atributo NOME
 
-                        carregaItensMenu(entity);
+                        if (!Permissoes.possuiPermissaoURL(entity, url, login))
+                            Response.Redirect("/permissao_negada.aspx");
+                        else
+                        {
+                            string grupo_permissao_nome = "";
+                            USUARIO u = entity.USUARIO.FirstOrDefault(x => x.LOGIN.Equals(login));
+                            if (u.GRUPO_PERMISSAO != null)
+                                grupo_permissao_nome = u.GRUPO_PERMISSAO.DESCRICAO;
+                            lbl_welcomeUser.Text = (u.NOME + "(" + grupo_permissao_nome + ")"); // em 'u' vai recuperar o atributo NOME
+
+                            carregaItensMenu(entity);
+                        }    
                     }
                 }
-
                 else
                 {
                     Response.Redirect("/Default.aspx");

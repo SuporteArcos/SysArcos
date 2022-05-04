@@ -130,7 +130,7 @@ namespace SysArcos.formularios.usuario
                         Response.Write("<script>alert('Grupo Permissão salvo com Sucesso!');</script>");
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
                     Response.Write("<script>alert('Registro não pode ser salvo!');</script>");
                 }

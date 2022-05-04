@@ -63,7 +63,7 @@ namespace ProjetoArcos
                 {
                     using (ARCOS_Entities entities = new ARCOS_Entities())
                     {
-                        if (!Permissoes.validar(Acoes.REMOVER,
+                        if (!Permissoes.possuiPermissaoTela(Acoes.REMOVER,
                             Session["usuariologado"].ToString(),
                             COD_VIEW,
                             entities))
