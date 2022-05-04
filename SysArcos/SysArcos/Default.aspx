@@ -65,7 +65,7 @@
                         <asp:Button ID="btnEntrar" runat="server" Text="Entrar" style="font-weight:bold" class="btn btn-primary" OnClick="btnEntrar_Click" />
                       </div>  
                     <br />
-                    <asp:Label ID="Label1" runat="server" Text="Versão 0.97"></asp:Label>
+                    <asp:Label ID="Label1" runat="server" Text="Versão 0.98"></asp:Label>
                 </form>
             </div>
         </div>    
