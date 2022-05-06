@@ -11,12 +11,12 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DATA_INICIAL" Type="date" Nullable="false" />
-          <Property Name="DATA_FINAL" Type="date" Nullable="false" />
+          <Property Name="DATA_FINAL" Type="date" />
           <Property Name="OBSERVACOES" Type="text" />
           <Property Name="ID_ASSISTIDO" Type="int" Nullable="false" />
           <Property Name="ID_ENTIDADE" Type="int" Nullable="false" />
-          <Property Name="ID_TIPO_ASSISTENCIA" Type="int" Nullable="false" />
           <Property Name="DATA_HORA_CRIACAO_REGISTRO" Type="datetime" Nullable="false" />
+          <Property Name="ID_TIPO_ASSISTENCIA" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ASSISTIDO">
           <Key>
@@ -284,7 +284,7 @@
             <PropertyRef Name="LOGIN" />
           </Key>
           <Property Name="LOGIN" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="SENHA" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="SENHA" Type="varchar" MaxLength="200" />
           <Property Name="NOME" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CPF" Type="varchar" MaxLength="14" />
           <Property Name="EMAIL" Type="varchar" MaxLength="50" Nullable="false" />
@@ -337,7 +337,19 @@
           <Property Name="ATIVO" Type="bit" Nullable="false" />
           <Property Name="DATA_HORA_CRIACAO_REGISTRO" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FK__ASSISTIDO__ID_GR__282DF8C2">
+        <Association Name="FK__ASSISTENC__ID_TI__73BA3083">
+          <End Role="TIPO_ASSISTENCIA" Type="Self.TIPO_ASSISTENCIA" Multiplicity="1" />
+          <End Role="ASSISTENCIA" Type="Self.ASSISTENCIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_ASSISTENCIA">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ASSISTENCIA">
+              <PropertyRef Name="ID_TIPO_ASSISTENCIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ASSISTIDO__ID_GR__76969D2E">
           <End Role="GRAU_DEPENDENCIA" Type="Self.GRAU_DEPENDENCIA" Multiplicity="1" />
           <End Role="ASSISTIDO" Type="Self.ASSISTIDO" Multiplicity="*" />
           <ReferentialConstraint>
@@ -370,18 +382,6 @@
             </Principal>
             <Dependent Role="ASSISTENCIA">
               <PropertyRef Name="ID_ENTIDADE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ASSISTENCIA_TIPO_ASSISTENCIA">
-          <End Role="TIPO_ASSISTENCIA" Type="Self.TIPO_ASSISTENCIA" Multiplicity="1" />
-          <End Role="ASSISTENCIA" Type="Self.ASSISTENCIA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TIPO_ASSISTENCIA">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ASSISTENCIA">
-              <PropertyRef Name="ID_TIPO_ASSISTENCIA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -653,18 +653,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SISTEMAITEMENTIDADE_SISTEMAENTIDADE">
-          <End Role="SISTEMA_ENTIDADE" Type="Self.SISTEMA_ENTIDADE" Multiplicity="1" />
-          <End Role="SISTEMA_ITEM_ENTIDADE" Type="Self.SISTEMA_ITEM_ENTIDADE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SISTEMA_ENTIDADE">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SISTEMA_ITEM_ENTIDADE">
-              <PropertyRef Name="ID_SISTEMA_ENTIDADE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_USUARIO_GRUPOPERMISSAO">
           <End Role="GRUPO_PERMISSAO" Type="Self.GRUPO_PERMISSAO" Multiplicity="0..1" />
           <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
@@ -754,7 +742,11 @@
           <EntitySet Name="VOLUNTARIADO" EntityType="Self.VOLUNTARIADO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VOLUNTARIAR" EntityType="Self.VOLUNTARIAR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VOLUNTARIO" EntityType="Self.VOLUNTARIO" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__ASSISTIDO__ID_GR__282DF8C2" Association="Self.FK__ASSISTIDO__ID_GR__282DF8C2">
+          <AssociationSet Name="FK__ASSISTENC__ID_TI__73BA3083" Association="Self.FK__ASSISTENC__ID_TI__73BA3083">
+            <End Role="TIPO_ASSISTENCIA" EntitySet="TIPO_ASSISTENCIA" />
+            <End Role="ASSISTENCIA" EntitySet="ASSISTENCIA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ASSISTIDO__ID_GR__76969D2E" Association="Self.FK__ASSISTIDO__ID_GR__76969D2E">
             <End Role="GRAU_DEPENDENCIA" EntitySet="GRAU_DEPENDENCIA" />
             <End Role="ASSISTIDO" EntitySet="ASSISTIDO" />
           </AssociationSet>
@@ -764,10 +756,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_ASSISTENCIA_ENTIDADE" Association="Self.FK_ASSISTENCIA_ENTIDADE">
             <End Role="ENTIDADE" EntitySet="ENTIDADE" />
-            <End Role="ASSISTENCIA" EntitySet="ASSISTENCIA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ASSISTENCIA_TIPO_ASSISTENCIA" Association="Self.FK_ASSISTENCIA_TIPO_ASSISTENCIA">
-            <End Role="TIPO_ASSISTENCIA" EntitySet="TIPO_ASSISTENCIA" />
             <End Role="ASSISTENCIA" EntitySet="ASSISTENCIA" />
           </AssociationSet>
           <AssociationSet Name="FK_ASSISTIDO_ENTIDADE" Association="Self.FK_ASSISTIDO_ENTIDADE">
@@ -856,10 +844,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_SISTEMAITEMENTIDADE_GRUPOPERMISSAO" Association="Self.FK_SISTEMAITEMENTIDADE_GRUPOPERMISSAO">
             <End Role="GRUPO_PERMISSAO" EntitySet="GRUPO_PERMISSAO" />
-            <End Role="SISTEMA_ITEM_ENTIDADE" EntitySet="SISTEMA_ITEM_ENTIDADE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SISTEMAITEMENTIDADE_SISTEMAENTIDADE" Association="Self.FK_SISTEMAITEMENTIDADE_SISTEMAENTIDADE">
-            <End Role="SISTEMA_ENTIDADE" EntitySet="SISTEMA_ENTIDADE" />
             <End Role="SISTEMA_ITEM_ENTIDADE" EntitySet="SISTEMA_ITEM_ENTIDADE" />
           </AssociationSet>
           <AssociationSet Name="FK_USUARIO_GRUPOPERMISSAO" Association="Self.FK_USUARIO_GRUPOPERMISSAO">
@@ -1299,7 +1283,7 @@
             <PropertyRef Name="LOGIN" />
           </Key>
           <Property Name="LOGIN" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="SENHA" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="SENHA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="NOME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CPF" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
           <Property Name="EMAIL" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1729,7 +1713,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DATA_INICIAL" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="DATA_FINAL" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DATA_FINAL" Type="DateTime" Precision="0" />
           <Property Name="OBSERVACOES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DATA_HORA_CRIACAO_REGISTRO" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="ASSISTIDO" Relationship="ARCOS_V2Model.FK_ASSISTENCIA_ASSISTIDO" FromRole="ASSISTENCIA" ToRole="ASSISTIDO" />

@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CryptSharp, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CryptSharpOfficial.2.1.0.0\lib\CryptSharp.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -673,6 +676,7 @@
     <Compile Include="USUARIO.cs">
       <DependentUpon>ModelArcos.tt</DependentUpon>
     </Compile>
+    <Compile Include="utils\Criptografia.cs" />
     <Compile Include="utils\Permissoes.cs" />
     <Compile Include="VOLUNTARIADO.cs">
       <DependentUpon>ModelArcos.tt</DependentUpon>

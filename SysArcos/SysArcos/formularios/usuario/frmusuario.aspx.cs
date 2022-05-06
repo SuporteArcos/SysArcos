@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SysArcos;
+using SysArcos.utils;
 namespace ProjetoArcos
 {
     public partial class formusuario : System.Web.UI.Page
@@ -26,7 +27,6 @@ namespace ProjetoArcos
                             txt_cpf.Text = u.CPF;
                             txt_email.Text = u.EMAIL;
                             txt_nomeUsuario.Text = u.NOME;
-                            txt_senhaUsuario.Text = u.SENHA;
                             txt_user.Text = u.LOGIN;
                             ddlPermissao.SelectedValue = u.GRUPO_PERMISSAO.ID.ToString();
                             ckAdministrador.Checked = u.ADM;
@@ -59,7 +59,7 @@ namespace ProjetoArcos
                             usuario = new USUARIO();
                             usuario.LOGIN = txt_user.Text;
 
-                            usuario.SENHA = txt_senhaUsuario.Text;
+                            usuario.SENHA = Criptografia.Codifica(txt_senhaUsuario.Text);
                             usuario.NOME = txt_nomeUsuario.Text.ToUpper();
                             usuario.CPF = txt_cpf.Text;
                             usuario.EMAIL = txt_email.Text.ToLower();
@@ -75,7 +75,7 @@ namespace ProjetoArcos
                             usuario = entity.USUARIO.FirstOrDefault(x => x.LOGIN.Equals(txt_user.Text));
 
 
-                            usuario.SENHA = txt_senhaUsuario.Text;
+                            usuario.SENHA = Criptografia.Codifica(txt_senhaUsuario.Text);
                             usuario.NOME = txt_nomeUsuario.Text.ToUpper();
                             usuario.CPF = txt_cpf.Text;
                             usuario.EMAIL = txt_email.Text.ToLower();

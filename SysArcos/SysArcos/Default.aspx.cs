@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SysArcos;
+using SysArcos.utils;
 namespace ProjetoArcos
 {
     public partial class Default : System.Web.UI.Page
@@ -32,7 +33,7 @@ namespace ProjetoArcos
             {
                 using (ARCOS_Entities entities = new ARCOS_Entities())
                 {
-                    USUARIO u = entities.USUARIO.Where(x => x.LOGIN.Equals(txtUsuario.Text) && x.SENHA.Equals(txtSenha.Text)).FirstOrDefault();
+                    USUARIO u = entities.USUARIO.Where(x => x.LOGIN.Equals(txtUsuario.Text)).FirstOrDefault();
                     if (u == null)
                     {
                         //conexão falhada
@@ -41,11 +42,19 @@ namespace ProjetoArcos
                     }
                     else if (Session["codigoCaptcha"]==null || Session["codigoCaptcha"].ToString() != txtCaptcha.Text)
                     {
-                        PreencheCodigoCaptcha();
-                        txtUsuario.Text = string.Empty;
-                        txtSenha.Text = string.Empty;
-                        txtCaptcha.Text = string.Empty;
-                        Response.Write("<script>alert('Verifique os caracteres da imagem');</script>");
+                        if (Criptografia.Compara(txtSenha.Text, u.SENHA))
+                        {
+                            PreencheCodigoCaptcha();
+                            txtUsuario.Text = string.Empty;
+                            txtSenha.Text = string.Empty;
+                            txtCaptcha.Text = string.Empty;
+                            Response.Write("<script>alert('Verifique os caracteres da imagem');</script>");
+                        }
+                        else
+                        {
+                            PreencheCodigoCaptcha();
+                            Response.Write("<script>alert('Login ou senha incorretos');</script>");
+                        }
                     }
                     else
                     {
