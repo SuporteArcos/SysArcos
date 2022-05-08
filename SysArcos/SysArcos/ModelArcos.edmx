@@ -337,7 +337,7 @@
           <Property Name="ATIVO" Type="bit" Nullable="false" />
           <Property Name="DATA_HORA_CRIACAO_REGISTRO" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FK__ASSISTENC__ID_TI__73BA3083">
+        <Association Name="FK__ASSISTENC__ID_TI__05D8E0BE">
           <End Role="TIPO_ASSISTENCIA" Type="Self.TIPO_ASSISTENCIA" Multiplicity="1" />
           <End Role="ASSISTENCIA" Type="Self.ASSISTENCIA" Multiplicity="*" />
           <ReferentialConstraint>
@@ -349,7 +349,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ASSISTIDO__ID_GR__76969D2E">
+        <Association Name="FK__ASSISTIDO__ID_GR__08B54D69">
           <End Role="GRAU_DEPENDENCIA" Type="Self.GRAU_DEPENDENCIA" Multiplicity="1" />
           <End Role="ASSISTIDO" Type="Self.ASSISTIDO" Multiplicity="*" />
           <ReferentialConstraint>
@@ -742,11 +742,11 @@
           <EntitySet Name="VOLUNTARIADO" EntityType="Self.VOLUNTARIADO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VOLUNTARIAR" EntityType="Self.VOLUNTARIAR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VOLUNTARIO" EntityType="Self.VOLUNTARIO" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__ASSISTENC__ID_TI__73BA3083" Association="Self.FK__ASSISTENC__ID_TI__73BA3083">
+          <AssociationSet Name="FK__ASSISTENC__ID_TI__05D8E0BE" Association="Self.FK__ASSISTENC__ID_TI__05D8E0BE">
             <End Role="TIPO_ASSISTENCIA" EntitySet="TIPO_ASSISTENCIA" />
             <End Role="ASSISTENCIA" EntitySet="ASSISTENCIA" />
           </AssociationSet>
-          <AssociationSet Name="FK__ASSISTIDO__ID_GR__76969D2E" Association="Self.FK__ASSISTIDO__ID_GR__76969D2E">
+          <AssociationSet Name="FK__ASSISTIDO__ID_GR__08B54D69" Association="Self.FK__ASSISTIDO__ID_GR__08B54D69">
             <End Role="GRAU_DEPENDENCIA" EntitySet="GRAU_DEPENDENCIA" />
             <End Role="ASSISTIDO" EntitySet="ASSISTIDO" />
           </AssociationSet>

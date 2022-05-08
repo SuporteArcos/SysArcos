@@ -16,7 +16,7 @@ namespace ProjetoArcos
                 String id = Request.QueryString["id"];
                 if ((id != null) && (!id.Equals("")))
                 {
-                    int i = Convert.ToInt32(ID);
+                    int i = Convert.ToInt32(id); //alterado
                     using (ARCOS_Entities entities = new ARCOS_Entities())
                     {
                         VOLUNTARIO u = entities.VOLUNTARIO.FirstOrDefault(x => x.ID.ToString().Equals(id));

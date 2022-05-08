@@ -40,15 +40,27 @@ namespace ProjetoArcos
                         PreencheCodigoCaptcha();
                         Response.Write("<script>alert('Login ou senha incorretos');</script>");
                     }
-                    else if (Session["codigoCaptcha"]==null || Session["codigoCaptcha"].ToString() != txtCaptcha.Text)
+                    else if (Session["codigoCaptcha"] != null && Session["codigoCaptcha"].ToString() == txtCaptcha.Text)
                     {
-                        if (Criptografia.Compara(txtSenha.Text, u.SENHA))
+                        if (Criptografia.Compara(txtSenha.Text, u.SENHA) == true)
                         {
-                            PreencheCodigoCaptcha();
-                            txtUsuario.Text = string.Empty;
-                            txtSenha.Text = string.Empty;
-                            txtCaptcha.Text = string.Empty;
-                            Response.Write("<script>alert('Verifique os caracteres da imagem');</script>");
+                            ArrayList entidades = new ArrayList();
+                            foreach (ENTIDADE i in u.ENTIDADE)
+                                entidades.Add(i.ID);
+
+                            // conexão bem sucedida
+                            Session["usuariologado"] = u.LOGIN.ToString();
+                            Session["entidades"] = entidades;
+                            if (u.ALTERA_SENHA_PROX_LOGIN)
+                            {
+                                //Redireciona para outra página
+                                Session["altera_primeiro_login"] = true;
+                                Response.Redirect("PaginaInicial.aspx");
+                            }
+                            else
+                                //Redireciona para outra página
+                                Session["altera_primeiro_login"] = false;
+                                Response.Redirect("PaginaInicial.aspx");
                         }
                         else
                         {
@@ -58,26 +70,8 @@ namespace ProjetoArcos
                     }
                     else
                     {
-                        //Verifica se é administrador e caso não seja, 
-                        //verifica as entidades que está vinculado
-                        ArrayList entidades = new ArrayList();
-                        foreach (ENTIDADE i in u.ENTIDADE)
-                            entidades.Add(i.ID);
-
-
-                        // conexão bem sucedida
-                        Session["usuariologado"] = u.LOGIN.ToString();
-                        Session["entidades"] = entidades;
-                        if (u.ALTERA_SENHA_PROX_LOGIN)
-                        {
-                            //Redireciona para outra página
-                            Session["altera_primeiro_login"] = true;
-                            Response.Redirect("PaginaInicial.aspx");
-                        }
-                        else
-                            //Redireciona para outra página
-                            Session["altera_primeiro_login"] = false;
-                        Response.Redirect("PaginaInicial.aspx");
+                        PreencheCodigoCaptcha();
+                        Response.Write("<script>alert('Captcha incorreto');</script>");
                     }
                 }
             }

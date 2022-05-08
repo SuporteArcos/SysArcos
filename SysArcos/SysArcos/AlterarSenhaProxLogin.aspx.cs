@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using SysArcos.utils;
 
 namespace SysArcos
 {
@@ -11,7 +12,10 @@ namespace SysArcos
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if((bool)Session["altera_primeiro_login"] == false)
+            {
+                Response.Redirect("/permissao_negada.aspx");
+            }
         }
 
         protected void btnAlterarSenha_Click(object sender, EventArgs e)
@@ -23,11 +27,15 @@ namespace SysArcos
                     l => l.LOGIN.Equals(login));
                 if (!u.SENHA.Equals(txtSenhaAtual.Text))
                 {
-                    Response.Write("<script>alert('Senha altual incorreta');</script>");
+                    Response.Write("<script>alert('Senha atual incorreta');</script>");
                 }
                 else if (!txtNovaSenha.Text.Equals(txtRepetirNovaSenha.Text))
                 {
                     Response.Write("<script>alert('Nova senha não confere');</script>");
+                }
+                else if (txtNovaSenha.Text == u.SENHA)
+                {
+                    Response.Write("<script>alert('Insira uma senha diferente');</script>");
                 }
                 else
                 {
