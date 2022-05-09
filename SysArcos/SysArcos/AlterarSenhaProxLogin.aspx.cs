@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SysArcos.utils;
+using CryptSharp;
 
 namespace SysArcos
 {
@@ -25,7 +26,8 @@ namespace SysArcos
                 string login = (string)Session["usuariologado"];
                 USUARIO u = entity.USUARIO.FirstOrDefault(
                     l => l.LOGIN.Equals(login));
-                if (!u.SENHA.Equals(txtSenhaAtual.Text))
+                string novasenha = Criptografia.Codifica(txtNovaSenha.Text);
+                if (!Criptografia.Compara(txtSenhaAtual.Text, u.SENHA))
                 {
                     Response.Write("<script>alert('Senha atual incorreta');</script>");
                 }
@@ -33,13 +35,13 @@ namespace SysArcos
                 {
                     Response.Write("<script>alert('Nova senha não confere');</script>");
                 }
-                else if (txtNovaSenha.Text == u.SENHA)
+                else if(Criptografia.Compara(txtNovaSenha.Text, u.SENHA) == true)
                 {
                     Response.Write("<script>alert('Insira uma senha diferente');</script>");
                 }
                 else
                 {
-                    u.SENHA = txtNovaSenha.Text;
+                    u.SENHA = novasenha;
                     u.ALTERA_SENHA_PROX_LOGIN = false;
                     entity.Entry(u);
                     entity.SaveChanges();
