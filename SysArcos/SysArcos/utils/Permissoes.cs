@@ -43,6 +43,7 @@ namespace SysArcos.utils
             List<String> paginas_livres = new List<String>();
             paginas_livres.Add("/permissao_negada.aspx");
             paginas_livres.Add("/PaginaInicial.aspx");
+            paginas_livres.Add("/AlterarSenhaProxLogin.aspx"); //disponível apenas para os usuários que ainda não alteraram a senha
 
             if (paginas_livres.Contains(url))
                 return true;
