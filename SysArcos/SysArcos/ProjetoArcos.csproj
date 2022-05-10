@@ -108,6 +108,7 @@
     <Content Include="formularios\parentesco_assistido\frmparentescoassistido.aspx" />
     <Content Include="formularios\recurso\frmbuscarecurso.aspx" />
     <Content Include="formularios\recurso\frmrecurso.aspx" />
+    <Content Include="formularios\tipoassistencia\frmbuscatipoassistencia.aspx" />
     <Content Include="formularios\tipoassistencia\frmtipoassistencia.aspx" />
     <Content Include="formularios\Voluntariar\frmvoluntariar.aspx" />
     <Content Include="GerarCaptcha.aspx" />
@@ -384,6 +385,13 @@
     </Compile>
     <Compile Include="formularios\recurso\frmrecurso.aspx.designer.cs">
       <DependentUpon>frmrecurso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="formularios\tipoassistencia\frmbuscatipoassistencia.aspx.cs">
+      <DependentUpon>frmbuscatipoassistencia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="formularios\tipoassistencia\frmbuscatipoassistencia.aspx.designer.cs">
+      <DependentUpon>frmbuscatipoassistencia.aspx</DependentUpon>
     </Compile>
     <Compile Include="formularios\tipoassistencia\frmtipoassistencia.aspx.cs">
       <DependentUpon>frmtipoassistencia.aspx</DependentUpon>

@@ -45,11 +45,6 @@ namespace ProjetoArcos
                 Response.Redirect("frmTipoEvento.aspx?ID=" + grid.SelectedValue.ToString());
         }
 
-        protected void grid_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         protected void btnRemover_Click(object sender, EventArgs e)
         {
             if (grid.SelectedValue != null)
@@ -76,11 +71,6 @@ namespace ProjetoArcos
                     Response.Write("<script>alert('Falha ao remover registro!');</script>");
                 }
             }
-        }
-
-        protected void rdDescricao_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)

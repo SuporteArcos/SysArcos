@@ -17,15 +17,14 @@ namespace ProjetoArcos
             {
                 using (ARCOS_Entities entities = new ARCOS_Entities())
                 {
-                    String evento = Request.QueryString["ID"];
-                    if ((evento != null) && (!evento.Equals("")))
+                    String ID = Request.QueryString["ID"];
+                    if ((ID != null) && (!ID.Equals("")))
                     {
-                        TIPO_EVENTO u = entities.TIPO_EVENTO.FirstOrDefault(x => x.ID.ToString().Equals(evento));
-                        if (u != null)
+                        TIPO_ASSISTENCIA t = entities.TIPO_ASSISTENCIA.FirstOrDefault(x => x.ID.ToString().Equals(ID));
+                        if (t != null)
                         {
-                            lblID.Text = u.ID.ToString();
-                            txtDescricaoEvento.Text = u.DESCRICAO;
-                            txtTipoEvento.Text = u.NOME;
+                            lblID.Text = t.ID.ToString();
+                            txtTipoAssistencia.Text = t.DESCRICAO;
                             lblAcao.Text = "ALTERANDO";
                         }
                     }
@@ -34,15 +33,10 @@ namespace ProjetoArcos
             }
         }
 
-        protected void TextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         protected void btnCadastrar_Click(object sender, EventArgs e)
         {
 
-            if (txtTipoEvento.Text == "" || txtDescricaoEvento.Text == "")
+            if (txtTipoAssistencia.Text == "")
             {
                 Response.Write("<script>alert('Há campos obrigatorios não preenchidos!');</script>");
             }
@@ -64,27 +58,25 @@ namespace ProjetoArcos
                             //String pagina = HttpContext.Current.Request.Url.AbsolutePath;
                             //validaPermissao(pagina);
 
-                            TIPO_EVENTO tipo_evento = null;
+                            TIPO_ASSISTENCIA tipo_assistencia = null;
 
                             if (lblAcao.Text.Equals("NOVO"))
                             {
-                                tipo_evento = new TIPO_EVENTO();
+                                tipo_assistencia = new TIPO_ASSISTENCIA();
                                 //entidade.ID = Convert.ToInt32(txtID.Text);
-                                tipo_evento.NOME = txtTipoEvento.Text;
-                                tipo_evento.DESCRICAO = txtDescricaoEvento.Text;
+                                tipo_assistencia.DESCRICAO = txtTipoAssistencia.Text;
 
                                 // Insere o objeto
-                                entity.TIPO_EVENTO.Add(tipo_evento);
+                                entity.TIPO_ASSISTENCIA.Add(tipo_assistencia);
 
                             }
                             else
                             {
-                                tipo_evento = entity.TIPO_EVENTO.FirstOrDefault(x => x.ID.ToString().Equals(lblID.Text));
+                                tipo_assistencia = entity.TIPO_ASSISTENCIA.FirstOrDefault(x => x.ID.ToString().Equals(lblID.Text));
 
-                                tipo_evento.NOME = txtTipoEvento.Text;
-                                tipo_evento.DESCRICAO = txtDescricaoEvento.Text;
+                                tipo_assistencia.DESCRICAO = txtTipoAssistencia.Text;
 
-                                entity.Entry(tipo_evento);
+                                entity.Entry(tipo_assistencia);
                             }
 
 
@@ -94,11 +86,9 @@ namespace ProjetoArcos
                             limpar();
 
                             // Commit
-                            Response.Write("<script>alert('Tipo de evento cadastrado com sucesso!');</script>");
+                            Response.Write("<script>alert('Tipo de assistência salvo com sucesso!');</script>");
 
-                            txtTipoEvento.Text = string.Empty;
-                            txtDescricaoEvento.Text = string.Empty;
-                            lblAcao.Text = "NOVO";
+                            limpar();
                         }
                     }
                 }
@@ -116,13 +106,12 @@ namespace ProjetoArcos
 
         protected void Button2_Click(object sender, EventArgs e)
         {
-            Response.Redirect("frmbuscatipoevento.aspx");
+            Response.Redirect("frmbuscatipoassistencia.aspx");
         }
 
         private void limpar()
         {
-            txtTipoEvento.Text = string.Empty;
-            txtDescricaoEvento.Text = string.Empty;
+            txtTipoAssistencia.Text = string.Empty;
             lblAcao.Text = "NOVO";
         }
     }

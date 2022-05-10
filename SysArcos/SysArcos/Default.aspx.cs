@@ -65,12 +65,14 @@ namespace ProjetoArcos
                         else
                         {
                             PreencheCodigoCaptcha();
+                            txtCaptcha.Text = String.Empty;
                             Response.Write("<script>alert('Login ou senha incorretos');</script>");
                         }
                     }
                     else
                     {
                         PreencheCodigoCaptcha();
+                        txtCaptcha.Text = String.Empty;
                         Response.Write("<script>alert('Captcha incorreto');</script>");
                     }
                 }

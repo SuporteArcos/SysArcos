@@ -22,21 +22,10 @@
     <div class="form-group">
         <div class="row">
             <div class="col-12 col-lg-4">
-                <asp:Label ID="lblTipoEvento" runat="server" Text="Tipo de Assistência"></asp:Label>
+                <asp:Label ID="lblTipoAssistencia" runat="server" Text="Tipo de Assistência"></asp:Label>
                 :
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtTipoEvento" ErrorMessage="Tipo de Evento está vazio" Font-Size="Medium" ForeColor="Red" ValidationGroup="form">*</asp:RequiredFieldValidator>
-                <asp:TextBox ID="txtTipoEvento" runat="server" Width="100%" MaxLength="50" CssClass="form-control" ValidationGroup="form"></asp:TextBox>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col-12 col-lg-4">
-                <asp:Label ID="lblDescricao" runat="server" Text="Descrição"></asp:Label>
-                :
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDescricaoEvento" ErrorMessage="Descrição está vazio" Font-Size="Medium" ForeColor="Red" ValidationGroup="form">*</asp:RequiredFieldValidator>
-                <asp:TextBox ID="txtDescricaoEvento" runat="server" Width="100%" MaxLength="50" CssClass="form-control" TextMode="MultiLine" ValidationGroup="form"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtTipoAssistencia" ErrorMessage="Tipo de Assistência está vazio" Font-Size="Medium" ForeColor="Red" ValidationGroup="form">*</asp:RequiredFieldValidator>
+                <asp:TextBox ID="txtTipoAssistencia" runat="server" Width="100%" MaxLength="50" CssClass="form-control" ValidationGroup="form"></asp:TextBox>
             </div>
         </div>
     </div>
