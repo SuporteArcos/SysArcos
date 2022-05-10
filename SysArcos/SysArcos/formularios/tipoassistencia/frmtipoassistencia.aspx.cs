@@ -17,34 +17,19 @@ namespace ProjetoArcos
             {
                 using (ARCOS_Entities entities = new ARCOS_Entities())
                 {
-                    if (Session["usuariologado"] == null)
+                    String evento = Request.QueryString["ID"];
+                    if ((evento != null) && (!evento.Equals("")))
                     {
-                        Response.Redirect("Default.aspx");
-                    }
-                    else
-                    {
-                        String login = (String)Session["usuariologado"];
-                        String url = HttpContext.Current.Request.Url.AbsolutePath;
-                        if (!Permissoes.possuiPermissaoURL(entities, url, login))
+                        TIPO_EVENTO u = entities.TIPO_EVENTO.FirstOrDefault(x => x.ID.ToString().Equals(evento));
+                        if (u != null)
                         {
-                            Response.Redirect("permissao_negada.aspx");
-                        }
-                        else
-                        {
-                            String evento = Request.QueryString["ID"];
-                            if ((evento != null) && (!evento.Equals("")))
-                            {
-                                TIPO_EVENTO u = entities.TIPO_EVENTO.FirstOrDefault(x => x.ID.ToString().Equals(evento));
-                                if (u != null)
-                                {
-                                    lblID.Text = u.ID.ToString();
-                                    txtDescricaoEvento.Text = u.DESCRICAO;
-                                    txtTipoEvento.Text = u.NOME;
-                                    lblAcao.Text = "ALTERANDO";
-                                }
-                            }
+                            lblID.Text = u.ID.ToString();
+                            txtDescricaoEvento.Text = u.DESCRICAO;
+                            txtTipoEvento.Text = u.NOME;
+                            lblAcao.Text = "ALTERANDO";
                         }
                     }
+
                 }
             }
         }

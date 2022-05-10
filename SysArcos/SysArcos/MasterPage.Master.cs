@@ -25,9 +25,9 @@ namespace ProjetoArcos
                     using (ARCOS_Entities entity = new ARCOS_Entities())
                     {
 
-                        //if (!Permissoes.possuiPermissaoURL(entity, url, login))
-                        //    Response.Redirect("/permissao_negada.aspx");
-                        //else
+                        if (!Permissoes.possuiPermissaoURL(entity, url, login))
+                            Response.Redirect("/permissao_negada.aspx");
+                        else
                         {
                             string grupo_permissao_nome = "";
                             USUARIO u = entity.USUARIO.FirstOrDefault(x => x.LOGIN.Equals(login));

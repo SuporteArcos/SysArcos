@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SysArcos;
+using SysArcos.utils;
 
 namespace ProjetoArcos
 {
@@ -35,6 +36,7 @@ namespace ProjetoArcos
 
         protected void btnRemover_Click(object sender, EventArgs e)
         {
+            
             if (grid.SelectedValue==null)
             {
                 Response.Write("<script>alert('NÃO É POSSÍVEL EXCLUIR, NÃO FOI SELECIONADO NENHUM VALOR');</script>");
@@ -49,15 +51,22 @@ namespace ProjetoArcos
                 {
                     using (ARCOS_Entities entities = new ARCOS_Entities())
                     {
-                        USUARIO usuario = entities.USUARIO.FirstOrDefault(x => x.LOGIN.Equals(login));
-                        entities.USUARIO.Remove(usuario);
-                        entities.SaveChanges();
+                        if (Permissoes.possuiPermissaoTela(Acoes.REMOVER, Session["usuariologado"].ToString(), "COUR", entities))
+                        {
+                            USUARIO usuario = entities.USUARIO.FirstOrDefault(x => x.LOGIN.Equals(login));
+                            entities.USUARIO.Remove(usuario);
+                            entities.SaveChanges();
 
-                        //Limpar Grid 
-                        grid.DataSource = null;
-                        grid.DataBind();
-                        grid.SelectedIndex = -1;
-                        Response.Write("<script>alert('Removido com sucesso!');</script>");
+                            //Limpar Grid 
+                            grid.DataSource = null;
+                            grid.DataBind();
+                            grid.SelectedIndex = -1;
+                            Response.Write("<script>alert('Removido com sucesso!');</script>");
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('Permissão negada!');</script>");
+                        }
                     }
                 }
                 catch

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2b710135950a4cfcb20c1f493c73afa7" Name="Diagram1" ZoomLevel="117">
+      <Diagram DiagramId="2b710135950a4cfcb20c1f493c73afa7" Name="Diagram1" ZoomLevel="66">
         <EntityTypeShape EntityType="ARCOS_V2Model.ASSISTIDO" Width="1.5" PointX="13.5" PointY="22.75" />
         <EntityTypeShape EntityType="ARCOS_V2Model.CATEGORIA_PRODUTO" Width="1.5" PointX="8.25" PointY="13.125" />
         <EntityTypeShape EntityType="ARCOS_V2Model.DOACAO" Width="1.5" PointX="10.5" PointY="20.625" />
