@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using SysArcos.utils;
 
 namespace SysArcos.formularios.tipoassistencia
 {
@@ -54,15 +55,22 @@ namespace SysArcos.formularios.tipoassistencia
                 {
                     using (ARCOS_Entities entities = new ARCOS_Entities())
                     {
-                        TIPO_ASSISTENCIA assistencia = entities.TIPO_ASSISTENCIA.FirstOrDefault(x => x.ID.ToString().Equals(ID));
-                        entities.TIPO_ASSISTENCIA.Remove(assistencia);
-                        entities.SaveChanges();
+                        if (Permissoes.possuiPermissaoTela(Acoes.REMOVER, Session["usuariologado"].ToString(), "CBTA", entities))
+                        {
+                            TIPO_ASSISTENCIA assistencia = entities.TIPO_ASSISTENCIA.FirstOrDefault(x => x.ID.ToString().Equals(ID));
+                            entities.TIPO_ASSISTENCIA.Remove(assistencia);
+                            entities.SaveChanges();
 
-                        //limpar grid
-                        grid.DataSource = null;
-                        grid.DataBind();
-                        grid.SelectedIndex = -1;
-                        Response.Write("<script>alert('Removido com sucesso!');</script>");
+                            //limpar grid
+                            grid.DataSource = null;
+                            grid.DataBind();
+                            grid.SelectedIndex = -1;
+                            Response.Write("<script>alert('Removido com sucesso!');</script>");
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('Permissão negada!');</script>");
+                        }
                     }
                 }
                 catch

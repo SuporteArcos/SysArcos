@@ -59,7 +59,7 @@
     <br/>
     <div class="row">        
         <div class="col-12 col-lg-4 row_buttons">    
-            <asp:Button ID="btnCancelar" runat="server" Text="Cancelar"  CssClass="btn btn-primary" OnClick="btnCancelar_Click" Width="100%"/>
+            <asp:Button ID="btnCancelar" runat="server" Text="Novo"  CssClass="btn btn-primary" OnClick="btnCancelar_Click" Width="100%"/>
         </div>
         <div class="col-12 col-lg-4 row_buttons">   
             <asp:Button ID="btnEditar" runat="server" Text="Editar" CssClass="btn btn-primary" Width="100%"/>

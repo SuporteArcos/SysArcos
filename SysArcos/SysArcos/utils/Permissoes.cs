@@ -55,8 +55,11 @@ namespace SysArcos.utils
                     SISTEMA_ENTIDADE item = con.SISTEMA_ENTIDADE.FirstOrDefault(x => x.URL.Equals(url));
                     if (item != null)
                     {
-                        SISTEMA_ITEM_ENTIDADE perm = u.GRUPO_PERMISSAO.SISTEMA_ITEM_ENTIDADE.
-                            FirstOrDefault(x => x.ID_SISTEMA_ENTIDADE.ToString().Equals(item.ID.ToString()));
+                        //SISTEMA_ITEM_ENTIDADE perm = u.GRUPO_PERMISSAO.SISTEMA_ITEM_ENTIDADE.
+                        //    FirstOrDefault(x => x.ID_SISTEMA_ENTIDADE.ToString().Equals(item.ID.ToString()));
+                        SISTEMA_ITEM_ENTIDADE perm =
+                            con.SISTEMA_ITEM_ENTIDADE.Where(linha => linha.ID_SISTEMA_ENTIDADE.ToString().Equals(item.ID.ToString()) &&
+                                                                   linha.ID_GRUPO_PERMISSAO.ToString().Equals(u.ID_GRUPOPERMISSAO.ToString())).FirstOrDefault();
                         if (perm == null)
                         {
                             return false;

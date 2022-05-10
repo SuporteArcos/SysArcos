@@ -38,7 +38,7 @@
 
     <div class="row">
         <div class="col-12">
-            <asp:GridView ID="grid" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" Width="100%" OnSelectedIndexChanged="grid_SelectedIndexChanged" DataKeyNames="ID">
+            <asp:GridView ID="grid" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" Width="100%" DataKeyNames="ID">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:BoundField DataField="NOME" HeaderText="NOME" />
@@ -63,7 +63,7 @@
 
     <div class="row">
         <div class="col-12 col-lg-4 row_buttons">
-            <asp:Button ID="btnCancelar" class="btn btn-primary" runat="server" Text="Cancelar" Width="100%" OnClick="btnCancelar_Click" />
+            <asp:Button ID="btnCancelar" class="btn btn-primary" runat="server" Text="Novo" Width="100%" OnClick="btnCancelar_Click" />
         </div>
         <div class="col-12 col-lg-4 row_buttons">
             <asp:Button ID="btnAlterar" class="btn btn-primary" runat="server" Text="Editar" Width="100%" OnClick="btnAlterar_Click" />

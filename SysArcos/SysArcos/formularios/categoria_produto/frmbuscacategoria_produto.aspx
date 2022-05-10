@@ -40,7 +40,7 @@
     </div>   
     <div class="row"> 
         <div class="col-12 col-lg-4 row_buttons">
-            <asp:Button ID="brnCancelar" runat="server" CssClass="btn btn-primary" Text="Cancelar" OnClick="brnCancelar_Click" Width="100%"/>
+            <asp:Button ID="brnCancelar" runat="server" CssClass="btn btn-primary" Text="Novo" OnClick="brnCancelar_Click" Width="100%"/>
         </div>
         <div class="col-12 col-lg-4 row_buttons">
             <asp:Button ID="btnEditar" runat="server" CssClass="btn btn-primary" Text="Editar" OnClick="btnEditar_Click" Width="100%"/>

@@ -68,7 +68,7 @@
             <asp:Button ID="btn_Selecionar" runat="server" class="btn btn-primary" Text="Alterar" OnClick="btn_Selecionar_Click" Width="100%"/>
         </div>    
         <div class="col-12 col-lg-4 row_buttons">    
-            <asp:Button ID="btn_Cancelar" runat="server" class="btn btn-primary" Text="Cancelar" OnClick="btn_Cancelar_Click"  Width="100%"/>
+            <asp:Button ID="btn_Cancelar" runat="server" class="btn btn-primary" Text="Novo" OnClick="btn_Cancelar_Click"  Width="100%"/>
         </div>
         <div class="col-12 col-lg-4 row_buttons">
             <asp:Button ID="btn_Remover" runat="server" class="btn btn-primary" Text="Remover" OnClick="btn_Remover_Click"  Width="100%"

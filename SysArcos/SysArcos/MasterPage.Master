@@ -52,19 +52,27 @@
                         <asp:Repeater ID="RepeaterMenu" runat="server">
                             <ItemTemplate>
                                 <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <b> <%# DataBinder.Eval(Container.DataItem, "DESCRICAO")%> </b>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <asp:Repeater ID="RepeaterItem" runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "SISTEMA_ENTIDADE") %>'>
-                                        <ItemTemplate>
-                                            <asp:HyperLink Visible='<%#DataBinder.Eval(Container.DataItem, "TIPO_ENTIDADE").ToString()=="CADASTRO"%>' class='dropdown-item' NavigateUrl='<%# DataBinder.Eval(Container.DataItem, "URL")%>' runat="server">
-                                                <b><%# DataBinder.Eval(Container.DataItem, "DESCRICAO") %></b>
-                                            </asp:HyperLink>
-                                        </ItemTemplate>   
-                                    </asp:Repeater>
-                                </div>
-                            </li>
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <b> <%# DataBinder.Eval(Container.DataItem, "DESCRICAO")%> </b>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <asp:Repeater ID="RepeaterItem" runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "SISTEMA_ENTIDADE") %>'>
+                                            <ItemTemplate>
+                                                <asp:HyperLink Visible='<%#DataBinder.Eval(Container.DataItem, "TIPO_ENTIDADE").ToString()=="CADASTRO"%>' class='dropdown-item' NavigateUrl='<%# DataBinder.Eval(Container.DataItem, "URL")%>' runat="server">
+                                                    <b><%# DataBinder.Eval(Container.DataItem, "DESCRICAO") %></b>
+                                                </asp:HyperLink>
+                                            </ItemTemplate>   
+                                        </asp:Repeater>
+                                        <div class="dropdown-divider"></div>
+                                        <asp:Repeater ID="Repeater1" runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "SISTEMA_ENTIDADE") %>'>
+                                            <ItemTemplate>
+                                                <asp:HyperLink Visible='<%#DataBinder.Eval(Container.DataItem, "TIPO_ENTIDADE").ToString()=="CONSULTA"%>' class='dropdown-item' NavigateUrl='<%# DataBinder.Eval(Container.DataItem, "URL")%>' runat="server">
+                                                    <b><%# DataBinder.Eval(Container.DataItem, "DESCRICAO") %></b>
+                                                </asp:HyperLink>
+                                            </ItemTemplate>   
+                                        </asp:Repeater>
+                                    </div>
+                                </li>
                             </ItemTemplate>
                         </asp:Repeater>
                     </ul>
